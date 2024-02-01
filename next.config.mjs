@@ -3,7 +3,7 @@
 */
 const nextConfig = {
     output: 'export',
-    assetPrefix: process.env.ASSET_PREFIX,
+    assetPrefix: process.env.ASSET_PREFIX+"/should-i-go-kitesurfing",
     basePath: process.env.BASE_PATH,
     images: {
       loader: 'akamai',
