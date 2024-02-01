@@ -1,7 +1,8 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import React from "react";
 
-export default function Home() {
+export default function Page() {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
