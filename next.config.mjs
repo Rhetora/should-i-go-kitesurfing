@@ -3,7 +3,7 @@
 */
 const nextConfig = {
     basePath: '/repository',
-    assetPrefix: '',
+    assetPrefix: '/repository/',
     output: 'export',
     images: {
       loader: 'akamai',
