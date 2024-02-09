@@ -10,7 +10,8 @@ import type { kitesKeyPairType, locationType } from "./types.ts";
 ("use strict");
 
 export default function Page() {
-  const [kites, setKites] = useState();
+  const [kites, setKites] = useState<number[]>([]);
+  const sizesAvailable = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 17];
   const [weight, setWeight] = useState<number>(0);
   const [locations, setLocations] = useState<locationType[]>([]);
 
@@ -24,6 +25,7 @@ export default function Page() {
     e.currentTarget.value = localWeight + "kgs";
     setWeight(localWeight);
     console.log(localWeight);
+    console.log("kites: "+kites);
   };
 
   return (
@@ -44,7 +46,7 @@ export default function Page() {
         </div>
         <div className="header-grid">
           <h2 className="kites-heading">Kite Quiver</h2>
-          {/* <CheckboxGrid sizes={kites} setSizes={setKites} /> */}
+          <CheckboxGrid sizesAvailable={sizesAvailable} kites={kites} setKites={setKites} />
           <input
             type="text"
             className="input-weight"
