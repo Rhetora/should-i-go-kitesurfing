@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { locationType } from "./types";
+import { getLocationFromName } from "./location";
 
 ("use strict");
 
@@ -65,5 +67,23 @@ export function WeightBox(props: { setWeight: (val: number) => void }) {
       placeholder="Enter weight in kgs"
       onBlur={updateWeight}
     />
+  );
+}
+
+export function LocationBox(props: {
+  locations: locationType[];
+  setLocations: (val: locationType[]) => void;
+}) {
+  return (
+    <form>
+      <input
+        type="text"
+        className="input-city"
+        placeholder="Search for a city"
+        autoFocus
+      />
+      <button type="submit">SUBMIT</button>
+      <span className="msg"></span>
+    </form>
   );
 }

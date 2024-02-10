@@ -1,9 +1,9 @@
 "use client";
-import "../../css/page.css";
-import React, { useState, useContext } from "react";
-import {CheckboxGrid, WeightBox} from "./entities";
-import Location from "./location";
+import React, { useState } from "react";
+import { CheckboxGrid, WeightBox, LocationBox } from "./entities";
+import { LocationGrid } from "./location";
 import type { locationType } from "./types.ts";
+import "../../css/page.css";
 
 ("use strict");
 
@@ -13,39 +13,24 @@ export default function Page() {
   const [weight, setWeight] = useState<number>(0);
   const [locations, setLocations] = useState<locationType[]>([]);
 
-   let locElements = locations.map(function (loc) {
-    return (
-      <Location
-        locData={loc}
-      />
-    );
-  });
-
   return (
     <body>
       <section className="top-banner">
         <div className="header-grid">
           <h1 className="heading">Should I go Kiting?</h1>
-          <form>
-            <input
-              type="text"
-              className="input-city"
-              placeholder="Search for a city"
-              autoFocus
-            />
-            <button type="submit">SUBMIT</button>
-            <span className="msg"></span>
-          </form>
+          <LocationBox locations={locations} setLocations={setLocations} />
         </div>
         <div className="header-grid">
           <h2 className="kites-heading">Kite Quiver</h2>
-          <CheckboxGrid sizesAvailable={sizesAvailable} kites={kites} setKites={setKites} />
-          <WeightBox setWeight={setWeight}/>
+          <CheckboxGrid
+            sizesAvailable={sizesAvailable}
+            kites={kites}
+            setKites={setKites}
+          />
+          <WeightBox setWeight={setWeight} />
         </div>
       </section>
-      {locElements}
+      <LocationGrid locations={locations} />
     </body>
   );
 }
-
-function getLocationData(url: string): any {}
