@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import type { kitesKeyPairType } from "./types";
 
 ("use strict");
 
@@ -29,7 +28,7 @@ function Checkbox(props: {
   );
 }
 
-function CheckboxGrid(props: {
+export function CheckboxGrid(props: {
   sizesAvailable: number[];
   kites: number[];
   setKites: (val: number[]) => void;
@@ -47,4 +46,24 @@ function CheckboxGrid(props: {
   return <div className="kites-grid">{checkboxes}</div>;
 }
 
-export default CheckboxGrid;
+export function WeightBox(props: { setWeight: (val: number) => void }) {
+  const updateWeight = (e: React.FormEvent<HTMLInputElement>) => {
+    let localWeight = parseInt(e.currentTarget.value);
+    if (!Number.isInteger(localWeight)) {
+      e.currentTarget.value = "";
+      e.currentTarget.placeholder = "Enter a number!";
+      return;
+    }
+    e.currentTarget.value = localWeight + "kgs";
+    props.setWeight(localWeight);
+  };
+
+  return (
+    <input
+      type="text"
+      className="input-weight"
+      placeholder="Enter weight in kgs"
+      onBlur={updateWeight}
+    />
+  );
+}

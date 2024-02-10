@@ -1,11 +1,9 @@
 "use client";
-
-import Image from "next/image";
 import "../../css/page.css";
 import React, { useState, useContext } from "react";
-import CheckboxGrid from "./entities";
-import LocationGrid from "./location";
-import type { kitesKeyPairType, locationType } from "./types.ts";
+import {CheckboxGrid, WeightBox} from "./entities";
+import Location from "./location";
+import type { locationType } from "./types.ts";
 
 ("use strict");
 
@@ -15,18 +13,13 @@ export default function Page() {
   const [weight, setWeight] = useState<number>(0);
   const [locations, setLocations] = useState<locationType[]>([]);
 
-  const updateWeight = (e: React.FormEvent<HTMLInputElement>) => {
-    let localWeight = parseInt(e.currentTarget.value);
-    if (!Number.isInteger(localWeight)) {
-      e.currentTarget.value = "";
-      e.currentTarget.placeholder = "Enter a number!";
-      return;
-    }
-    e.currentTarget.value = localWeight + "kgs";
-    setWeight(localWeight);
-    console.log(localWeight);
-    console.log("kites: "+kites);
-  };
+   let locElements = locations.map(function (loc) {
+    return (
+      <Location
+        locData={loc}
+      />
+    );
+  });
 
   return (
     <body>
@@ -47,15 +40,10 @@ export default function Page() {
         <div className="header-grid">
           <h2 className="kites-heading">Kite Quiver</h2>
           <CheckboxGrid sizesAvailable={sizesAvailable} kites={kites} setKites={setKites} />
-          <input
-            type="text"
-            className="input-weight"
-            placeholder="Enter weight in kgs"
-            onBlur={updateWeight}
-          />
+          <WeightBox setWeight={setWeight}/>
         </div>
       </section>
-      <LocationGrid />
+      {locElements}
     </body>
   );
 }
