@@ -74,8 +74,47 @@ export function LocationBox(props: {
   locations: locationType[];
   setLocations: (val: locationType[]) => void;
 }) {
+  function addLocation(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    //element selectors
+    let form = event.currentTarget;
+    let msg = document.querySelector<HTMLSpanElement>(".msg")!;
+    let input = document.querySelector<HTMLInputElement>(".input-city")!;
+    let inputVal = input.value //process input text
+      .toLowerCase()
+      .replace(" ", "")
+      .replace("uk", "gb");
+
+    //check for duplicate location
+    if (props.locations.length > 0) {
+      const filteredArray = props.locations.filter(
+        (value) => value.name == inputVal
+      );
+      if (filteredArray.length > 0) {
+        msg.textContent = `You already know the weather for ${filteredArray[0].name} ...otherwise be more specific by providing the country code as well`;
+        form.reset();
+        input.focus();
+        return;
+      }
+    }
+
+    //get location from input
+    let newLoc: locationType = getLocationFromName(inputVal);
+    if (newLoc.name != "InvalidCity") {
+      const newLocations = [...props.locations, newLoc];
+      props.setLocations(newLocations); //replace global array
+    } else {
+      msg.textContent = "Please search for a valid city!";
+    }
+    msg.textContent = "";
+    form.reset();
+    input.focus();
+
+    console.log(props.locations);
+  }
   return (
-    <form>
+    <form onSubmit={addLocation}>
       <input
         type="text"
         className="input-city"

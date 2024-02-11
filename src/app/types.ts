@@ -1,9 +1,8 @@
-export interface kitesKeyPairType {
-    [key: number]: boolean;
+export interface locationType {
+  name: string;
+  data: any;
 }
 
-export interface locationType {
-    name: string;
-    url: string;
-    data: any;
+export interface location_dataType {
+  name: string;
 }

@@ -4,6 +4,7 @@ import { CheckboxGrid, WeightBox, LocationBox } from "./entities";
 import { LocationGrid } from "./location";
 import type { locationType } from "./types.ts";
 import "../../css/page.css";
+import "../../css/locations.css";
 
 ("use strict");
 
