@@ -9,12 +9,14 @@ export function getLocationFromName(name: string): any {
     name: name,
     data: "test data",
   };
+  //"InvalidCity"
   return ret;
 }
 
-function getDatafromUrl(url: string): any {}
+function getDatafromUrl(url: string): any {
+}
 
-function Location(props: { locData: locationType }) {
+function Location(props: { location: locationType }) {
   return (
     <li className="cityli">
       <h1 className="close-container">
@@ -23,7 +25,7 @@ function Location(props: { locData: locationType }) {
       <div className="city">
         <div className="city-grid">
           <h2 className="city-name" data-name='${props.locData.name}'>
-            <span>{props.locData.name}</span>
+            <span>{props.location.name}</span>
             <sup>{"GB"}</sup>
           </h2>
           <div className="city-temp">
@@ -50,15 +52,13 @@ function Location(props: { locData: locationType }) {
 }
 
 export function LocationGrid(props: { locations: locationType[] }) {
-  let locElements = props.locations.map(function (loc) {
-    return <Location locData={loc} />;
+  let locationMarkup = props.locations.map(function (currLocation) {
+    return <Location location={currLocation} />;
   });
 
   return (
     <section className="ajax-section">
-      <div className="container">
-        <ul className="cities">{locElements}</ul>
-      </div>
+        <ul className="cities">{locationMarkup}</ul>
     </section>
   );
 }

@@ -6,40 +6,40 @@ import { getLocationFromName } from "./location";
 
 function Checkbox(props: {
   key: number;
-  size: number;
+  kiteSize: number;
   kites: number[];
   setKites: (val: number[]) => void;
 }) {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>): any {
     let checked = event.target.checked;
     let kites = props.kites;
-    if (checked && !kites.includes(props.size)) {
+    if (checked && !kites.includes(props.kiteSize)) {
       // Add the size to the array without directly modifying the original array
-      props.setKites([...kites, props.size]);
-    } else if (!checked && kites.includes(props.size)) {
+      props.setKites([...kites, props.kiteSize]);
+    } else if (!checked && kites.includes(props.kiteSize)) {
       // Remove the size from the array without directly modifying the original array
-      props.setKites(kites.filter((value) => value !== props.size));
+      props.setKites(kites.filter((value) => value !== props.kiteSize));
     }
   }
 
   return (
     <label className="kite-checkbox">
-      <input id={`${props.size}m`} type="checkbox" onChange={handleChange} />
-      {props.size}m
+      <input id={`${props.kiteSize}m`} type="checkbox" onChange={handleChange} />
+      {props.kiteSize}m
     </label>
   );
 }
 
 export function CheckboxGrid(props: {
-  sizesAvailable: number[];
+  kiteSizes: number[];
   kites: number[];
   setKites: (val: number[]) => void;
 }) {
-  let checkboxes = props.sizesAvailable.map(function (size) {
+  let checkboxes = props.kiteSizes.map(function (size) {
     return (
       <Checkbox
         key={size}
-        size={size}
+        kiteSize={size}
         kites={props.kites}
         setKites={props.setKites}
       />

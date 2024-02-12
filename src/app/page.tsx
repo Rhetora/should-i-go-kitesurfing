@@ -10,7 +10,7 @@ import "../../css/locations.css";
 
 export default function Page() {
   const [kites, setKites] = useState<number[]>([]);
-  const sizesAvailable = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 17];
+  const kiteSizes = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 17];
   const [weight, setWeight] = useState<number>(0);
   const [locations, setLocations] = useState<locationType[]>([]);
 
@@ -24,7 +24,7 @@ export default function Page() {
         <div className="header-grid">
           <h2 className="kites-heading">Kite Quiver</h2>
           <CheckboxGrid
-            sizesAvailable={sizesAvailable}
+            kiteSizes={kiteSizes}
             kites={kites}
             setKites={setKites}
           />
