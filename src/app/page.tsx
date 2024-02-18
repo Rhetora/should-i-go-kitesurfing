@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { CheckboxGrid, WeightBox, LocationBox } from "./entities";
 import { LocationGrid } from "./location";
-import type { locationType } from "./types.ts";
+import type { location_type as location_type } from "./types.ts";
 import "../../css/page.css";
 import "../../css/locations.css";
 
@@ -12,7 +12,7 @@ export default function Page() {
   const [kites, setKites] = useState<number[]>([]);
   const kiteSizes = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 17];
   const [weight, setWeight] = useState<number>(0);
-  const [locations, setLocations] = useState<locationType[]>([]);
+  const [locations, setLocations] = useState<location_type[]>([]);
 
   return (
     <body>
@@ -31,7 +31,7 @@ export default function Page() {
           <WeightBox setWeight={setWeight} />
         </div>
       </section>
-      <LocationGrid locations={locations} />
+      <LocationGrid locations={locations} setLocations={setLocations} />
     </body>
   );
 }

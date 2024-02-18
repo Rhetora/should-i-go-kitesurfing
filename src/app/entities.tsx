@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { locationType } from "./types";
-import { getLocationFromName } from "./location";
+import { location_type } from "./types";
+import { getCoordsFromName, getDataFromCoords } from "./location";
 
 ("use strict");
 
@@ -24,7 +24,11 @@ function Checkbox(props: {
 
   return (
     <label className="kite-checkbox">
-      <input id={`${props.kiteSize}m`} type="checkbox" onChange={handleChange} />
+      <input
+        id={`${props.kiteSize}m`}
+        type="checkbox"
+        onChange={handleChange}
+      />
       {props.kiteSize}m
     </label>
   );
@@ -71,10 +75,10 @@ export function WeightBox(props: { setWeight: (val: number) => void }) {
 }
 
 export function LocationBox(props: {
-  locations: locationType[];
-  setLocations: (val: locationType[]) => void;
+  locations: location_type[];
+  setLocations: (val: location_type[]) => void;
 }) {
-  function addLocation(event: React.FormEvent<HTMLFormElement>) {
+  async function addLocation(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     //element selectors
@@ -85,33 +89,39 @@ export function LocationBox(props: {
       .toLowerCase()
       .replace(" ", "")
       .replace("uk", "gb");
+    let coords = await getCoordsFromName(inputVal);
 
-    //check for duplicate location
-    if (props.locations.length > 0) {
-      const filteredArray = props.locations.filter(
-        (value) => value.name == inputVal
-      );
-      if (filteredArray.length > 0) {
-        msg.textContent = `You already know the weather for ${filteredArray[0].name} ...otherwise be more specific by providing the country code as well`;
-        form.reset();
-        input.focus();
-        return;
+    if (coords != null) {
+      //check for duplicate location
+      if (props.locations.length > 0) {
+        const filteredArray = props.locations.filter(
+          (value) => value.name == coords.name && value.country == coords.country
+        );
+        if (filteredArray.length > 0) {
+          msg.textContent = `You already know the weather for ${filteredArray[0].name} ...otherwise be more specific by providing the country code as well`;
+          form.reset();
+          input.focus();
+          return;
+        }
       }
-    }
 
-    //get location from input
-    let newLoc: locationType = getLocationFromName(inputVal);
-    if (newLoc.name != "InvalidCity") {
+      const locData = getDataFromCoords(coords.lat, coords.lon);
+      const newLoc: location_type = {
+        name: coords.name,
+        country: coords.country,
+        lat: coords.lat,
+        long: coords.lon,
+        data: locData,
+      };
       const newLocations = [...props.locations, newLoc];
       props.setLocations(newLocations); //replace global array
+      msg.textContent = "";
     } else {
+      console.log("ENTER");
       msg.textContent = "Please search for a valid city!";
     }
-    msg.textContent = "";
     form.reset();
     input.focus();
-
-    console.log(props.locations);
   }
   return (
     <form onSubmit={addLocation}>
