@@ -70,7 +70,7 @@ export async function getDataFromCoords(
 
 export async function getCoordsFromName(
   name: string
-): Promise<{ lat: number; lon: number; name: string; country: string } | null> {
+): Promise<{ lat: number; lon: number; name: string; country: string }> {
   let geocodeUrl = `https://geocode.maps.co/search?q=${name}&api_key=${geocodeApiKey}`;
   try {
     const response = await fetch(geocodeUrl);
@@ -83,11 +83,11 @@ export async function getCoordsFromName(
       return { lat, lon, name, country };
     } else {
       console.log("No data found");
-      return null;
+      return {lat: 0, lon: 0, name: "Undefined", country: "Undefined"};
     }
   } catch (error) {
     console.error("Can't convert location to coords", error);
-    return null;
+    return {lat: 0, lon: 0, name: "Undefined", country: "Undefined"};
   }
 }
 

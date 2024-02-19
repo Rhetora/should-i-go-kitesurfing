@@ -91,7 +91,7 @@ export function LocationBox(props: {
       .replace("uk", "gb");
     let coords = await getCoordsFromName(inputVal);
 
-    if (coords !== null) {
+    if (coords.name !== "Undefined") {
       //check for duplicate location
       if (props.locations.length > 0) {
         const filteredArray = props.locations.filter(
