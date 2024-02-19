@@ -7,6 +7,8 @@ export interface location_type {
 }
 
 export interface locationData_type {
+  timezone: string | null;
+  timezoneAbbreviation: string | null;
   time: Date[];
   temperature: Float32Array;
   rain: Float32Array;

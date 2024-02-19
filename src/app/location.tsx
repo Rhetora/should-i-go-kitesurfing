@@ -50,7 +50,9 @@ export async function getDataFromCoords(
   const hourly = response.hourly()!;
 
   // Note: The order of weather variables in the URL query and the indices below need to match!
-  const weatherData = {
+  const weatherData: locationData_type = {
+    timezone: timezone,
+    timezoneAbbreviation: timezoneAbbreviation,
     time: range(
       Number(hourly.time()),
       Number(hourly.timeEnd()),
@@ -63,19 +65,6 @@ export async function getDataFromCoords(
     windGusts: hourly.variables(5)!.valuesArray()!,
     windDirection: hourly.variables(4)!.valuesArray()!,
   };
-
-  // `weatherData` now contains a simple structure with arrays for datetime and weather data
-  // for (let i = 0; i < weatherData.hourly.time.length; i++) {
-  //   console.log(
-  //     weatherData.hourly.time[i].toISOString(),
-  //     weatherData.hourly.temperature2m[i],
-  //     weatherData.hourly.rain[i],
-  //     weatherData.hourly.weatherCode[i],
-  //     weatherData.hourly.windSpeed10m[i],
-  //     weatherData.hourly.windGusts10m[i],
-  //     weatherData.hourly.windDirection10m[i]
-  //   );
-  // }
   return weatherData;
 }
 
